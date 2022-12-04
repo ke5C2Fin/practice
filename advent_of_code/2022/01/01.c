@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void nummax(void);
+static void nummax(void);
 
 int num, max1, max2, max3;
 
@@ -29,7 +29,7 @@ main(void)
         return 0;
 }
 
-void
+static void
 nummax(void)
 {
         if (num > max1) {
