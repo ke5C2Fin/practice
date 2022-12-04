@@ -23,6 +23,7 @@ main(void)
                 num += atoi(buf);
         }
         fclose(fp); fp = NULL;
+
         (void)nummax();
         (void)printf("%d\n", max1 + max2 + max3);
 
