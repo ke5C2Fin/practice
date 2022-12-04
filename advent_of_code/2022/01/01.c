@@ -18,7 +18,6 @@ main(void)
                         (void)nummax();
                         continue;
                 }
-
                 num += atoi(buf);
         }
         fclose(fp); fp = NULL;
