@@ -16,7 +16,6 @@ main(void)
         while (fgets(buf, sizeof(buf), fp) != NULL) {
                 if (buf[0] == '\n') {
                         (void)nummax();
-                        num = 0;
                         continue;
                 }
 
@@ -43,4 +42,5 @@ nummax(void)
         } else if (num > max3) {
                 max3 = num;
         }
+        num = 0;
 }
