@@ -4,42 +4,51 @@
 
 static void nummax(void);
 
-int num, max1, max2, max3;
+enum { N = 3 };
+int num, max[N];
 
 int
 main(void)
 {
-        FILE *fp;
-        char buf[1024];
+	FILE *fp;
+	char buf[1024];
+	int i;
+	int sum = 0;
 
-        if ((fp = fopen("./input", "r")) == NULL) err(1, "fopen");
-        while (fgets(buf, sizeof(buf), fp) != NULL) {
-                if (buf[0] == '\n') {
-                        (void)nummax();
-                        continue;
-                }
-                num += atoi(buf);
-        }
-        fclose(fp); fp = NULL;
+	if ((fp = fopen("./input", "r")) == NULL) err(1, "fopen");
+	while (fgets(buf, sizeof(buf), fp) != NULL) {
+		if (buf[0] == '\n') {
+			(void)nummax();
+			num = 0;
+		} else {
+			num += atoi(buf);
+		}
+	}
+	fclose(fp);
+	fp = NULL;
 
-        (void)nummax();
-        (void)printf("%d\n", max1 + max2 + max3);
+	(void)nummax();
+	for (i = 0; i < N; i++) {
+		sum += max[i];
+	}
+	(void)printf("%d\n", sum);
 
-        return 0;
+	return 0;
 }
 
 static void
 nummax(void)
 {
-        if (num > max1) {
-                max3 = max2;
-                max2 = max1;
-                max1 = num;
-        } else if (num > max2) {
-                max3 = max2;
-                max2 = num;
-        } else if (num > max3) {
-                max3 = num;
-        }
-        num = 0;
+	int i, tmp;
+
+	if (num < max[0]) return;
+
+	max[0] = num;
+	for (i = 0; i < (N-1); i++) {
+		if (max[i] > max[i+1]) {
+			tmp = max[i];
+			max[i] = max[i+1];
+			max[i+1] = tmp;
+		}
+	}
 }
