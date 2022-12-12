@@ -2,10 +2,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-static void nummax(void);
+static void nummax(int);
 
 enum { N = 3 };
-int num, max[N];
+int max[N];
 
 int
 main(void)
@@ -14,11 +14,12 @@ main(void)
 	char buf[1024];
 	int i;
 	int sum = 0;
+	int num = 0;
 
 	if ((fp = fopen("./input", "r")) == NULL) err(1, "fopen");
 	while (fgets(buf, sizeof(buf), fp) != NULL) {
 		if (buf[0] == '\n') {
-			(void)nummax();
+			nummax(num);
 			num = 0;
 		} else {
 			num += atoi(buf);
@@ -27,7 +28,7 @@ main(void)
 	fclose(fp);
 	fp = NULL;
 
-	(void)nummax();
+	nummax(num);
 	for (i = 0; i < N; i++) {
 		sum += max[i];
 	}
@@ -37,18 +38,18 @@ main(void)
 }
 
 static void
-nummax(void)
+nummax(int n)
 {
-	int i, tmp;
+	int i;
 
-	if (num < max[0]) return;
+	if (n < max[0]) return;
 
-	max[0] = num;
+	max[0] = n;
 	for (i = 0; i < (N-1); i++) {
 		if (max[i] > max[i+1]) {
-			tmp = max[i];
+			n = max[i];
 			max[i] = max[i+1];
-			max[i+1] = tmp;
+			max[i+1] = n;
 		}
 	}
 }
